@@ -1,13 +1,23 @@
 import Grid from './components/Grid.jsx';
 import Keyboard from './components/Keyboard.jsx';
 import { getKeyboardStates } from './utils.js';
+import { getRandomWord } from './wordService.js';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 function App() {
     const [guesses, setGuesses] = useState([]);
     const [currentGuess, setCurrentGuess] = useState('');
-    const [solution, setSolution] = useState('trees');
+    const [solution, setSolution] = useState('');
+
+    useEffect(() => {
+        const getSolution = async () => {
+            const newSolution = await getRandomWord();
+            setSolution(newSolution);
+        };
+
+        getSolution();
+    }, [])
 
     const handleKeyPress = (key) => {
         if(guesses.length === 6) {
