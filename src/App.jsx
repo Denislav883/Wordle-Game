@@ -1,11 +1,13 @@
 import Grid from './components/Grid.jsx';
 import Keyboard from './components/Keyboard.jsx';
+import { getKeyboardStates } from './utils.js';
 
 import { useState } from 'react';
 
 function App() {
     const [guesses, setGuesses] = useState([]);
     const [currentGuess, setCurrentGuess] = useState('');
+    const [solution, setSolution] = useState('trees');
 
     const handleKeyPress = (key) => {
         if(guesses.length === 6) {
@@ -25,10 +27,12 @@ function App() {
         }
     }
 
+    const keyboardStates = getKeyboardStates(guesses, solution);
+
     return (
         <div className='app'>
-            <Grid guesses={guesses} currentGuess={currentGuess} />
-            <Keyboard onKeyPress={handleKeyPress} />
+            <Grid guesses={guesses} currentGuess={currentGuess} solution={solution}/>
+            <Keyboard onKeyPress={handleKeyPress} keyboardStates={keyboardStates}/>
         </div>
     )
 }

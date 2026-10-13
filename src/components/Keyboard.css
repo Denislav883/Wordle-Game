@@ -25,3 +25,15 @@
     flex: 1;
     text-transform: uppercase;
 }
+
+.keyboard-key.correct {
+    background-color: #538d4e;
+}
+
+.keyboard-key.present {
+    background-color: #b59f3b;
+}
+
+.keyboard-key.absent {
+    background-color: #3a3a3c;
+}

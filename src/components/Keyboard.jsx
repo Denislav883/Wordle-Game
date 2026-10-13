@@ -8,7 +8,7 @@ const KEYBOARD_ROWS =
     ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace']
 ]
 
-const Keyboard = ({ onKeyPress }) => {
+const Keyboard = ({ keyboardStates, onKeyPress }) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
@@ -35,6 +35,8 @@ const Keyboard = ({ onKeyPress }) => {
                 return (
                     <div key={rowIndex} className="keyboard-row">
                         {row.map((key) => {
+                            const state = key.length === 1 ? keyboardStates[key.toLowerCase()] : '';
+
                             return (
                                 <button 
                                     key={key}
@@ -43,7 +45,7 @@ const Keyboard = ({ onKeyPress }) => {
                                         key === 'Backspace' || key === 'Enter' 
                                         ? 'keyboard-key-wide' 
                                         : ''
-                                    }`}
+                                    } ${state}`}
                                 >
                                     {key === 'Backspace' ? '⌫' : key}
                                 </button>

@@ -25,4 +25,38 @@
     text-transform: uppercase;
 
     color: white;
+    transition: background-color 0.6s ease;
+}
+
+.cell-correct {
+    background-color: #538d4e;
+    border-color: #538d4e;
+}
+
+.cell-present {
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+}
+
+.cell-absent {
+    background-color: #3a3a3c;
+    border-color: #3a3a3c;
+}
+
+.cell:not(:empty) {
+    animation: pop 0.1s ease;
+}
+
+@keyframes pop {
+    0% {
+       transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
