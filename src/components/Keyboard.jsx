@@ -1,24 +1,27 @@
 import { useEffect } from 'react';
 import './Keyboard.css';
 
-const KEYBOARD_ROWS = 
-[
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace']
-]
+const KEYBOARD_ROWS =
+    [
+        ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+        ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+        ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Backspace']
+    ]
 
-const Keyboard = ({ keyboardStates, onKeyPress }) => {
+const Keyboard = ({ isGameOver, keyboardStates, onKeyPress }) => {
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            const key = event.key;
 
-            if(key === 'Backspace' || key === 'Enter' || /^[a-z]$/.test(key)) {
-                event.preventDefault();
-                onKeyPress(key.toUpperCase());
+            if (!isGameOver) {
+                const key = event.key;
+
+                if (key === 'Backspace' || key === 'Enter' || /^[a-z]$/.test(key)) {
+                    event.preventDefault();
+                    onKeyPress(key.toUpperCase());
+                }
             }
-        }
+        };
 
         window.addEventListener('keydown', handleKeyDown);
 
@@ -26,7 +29,11 @@ const Keyboard = ({ keyboardStates, onKeyPress }) => {
     });
 
     const handleClick = (key) => {
-        onKeyPress(key.toUpperCase());
+
+        if (!isGameOver) {
+            onKeyPress(key.toUpperCase());
+        }
+
     }
 
     return (
@@ -38,14 +45,13 @@ const Keyboard = ({ keyboardStates, onKeyPress }) => {
                             const state = key.length === 1 ? keyboardStates[key.toLowerCase()] : '';
 
                             return (
-                                <button 
+                                <button
                                     key={key}
                                     onClick={() => handleClick(key)}
-                                    className={`keyboard-key ${
-                                        key === 'Backspace' || key === 'Enter' 
-                                        ? 'keyboard-key-wide' 
-                                        : ''
-                                    } ${state}`}
+                                    className={`keyboard-key ${key === 'Backspace' || key === 'Enter'
+                                            ? 'keyboard-key-wide'
+                                            : ''
+                                        } ${state}`}
                                 >
                                     {key === 'Backspace' ? '⌫' : key}
                                 </button>

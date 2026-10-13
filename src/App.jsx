@@ -10,6 +10,9 @@ function App() {
     const [currentGuess, setCurrentGuess] = useState('');
     const [solution, setSolution] = useState('');
 
+    const [isGameOver, setIsGameOver] = useState(false);
+
+
     useEffect(() => {
         const getSolution = async () => {
             const newSolution = await getRandomWord();
@@ -28,6 +31,21 @@ function App() {
 
             if(currentGuess.length === 5) {
                 setGuesses([...guesses, currentGuess]);
+
+                if(currentGuess === solution) {
+                    setIsGameOver(true);
+                    
+                    setTimeout(() => {
+                        alert('Congratulations, you have won!');
+                    }, 1000);
+                } else if(guesses.length === 5) {
+                    setIsGameOver(true);
+                    
+                    setTimeout(() => {
+                        alert(`Better luck next time! The word was ${solution.toUpperCase()}`);
+                    }, 1000);
+                }
+
                 setCurrentGuess('');
             }
         } else if(key === 'BACKSPACE') {
@@ -42,7 +60,7 @@ function App() {
     return (
         <div className='app'>
             <Grid guesses={guesses} currentGuess={currentGuess} solution={solution}/>
-            <Keyboard onKeyPress={handleKeyPress} keyboardStates={keyboardStates}/>
+            <Keyboard isGameOver={isGameOver} onKeyPress={handleKeyPress} keyboardStates={keyboardStates}/>
         </div>
     )
 }
