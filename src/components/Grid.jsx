@@ -3,8 +3,16 @@ import './Grid.css';
 const rows = 6;
 const cols = 5;
 
-const Grid = ({guesses}) => {
-    const currentGuesses = guesses || Array(rows).fill('');
+const Grid = ({guesses, currentGuess}) => {
+    const allGuesses = [...guesses];
+    
+    if(currentGuess) {
+        allGuesses.push(currentGuess);
+    }
+
+    while(allGuesses.length < rows) {
+        allGuesses.push('');
+    }
 
     return (
         <div className="grid">
@@ -13,7 +21,7 @@ const Grid = ({guesses}) => {
                 return (
                     <div key={rowIndex} className="row">
                         {Array(cols).fill().map((_, colIndex) => {
-                            const letter = currentGuesses[rowIndex]?.[colIndex] || ''; //optional chaning if the first one is undefined there is no guess
+                            const letter = allGuesses[rowIndex]?.[colIndex] || ''; //optional chaning if the first one is undefined there is no guess
                             return (
                                 <div key={`${rowIndex}-${colIndex}`} className="cell">
                                     {letter}
