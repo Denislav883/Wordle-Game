@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-    padding: 0 8px;
+    padding: 0 2px;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -11,19 +11,27 @@
 .keyboard-row {
     display: flex;
     justify-content: center;
-    gap: 6px;
+    gap: clamp(3px, 1.2vw, 6px);
     width: 100%;
 }
 
 .keyboard-key {
+    min-width: 0;
+    padding: 0 1px;
     font-weight: bold;
     border: 0;
-    height: 58px;
+    height: clamp(40px, 7vh, 58px);
     cursor: pointer;
     background-color: #818384;
     color: white;
     flex: 1;
     text-transform: uppercase;
+    font-size: clamp(0.62rem, 3vw, 0.95rem);
+}
+
+.keyboard-key-wide {
+    flex: 1.5;
+    font-size: clamp(0.55rem, 2.5vw, 0.78rem);
 }
 
 .keyboard-key.correct {
@@ -36,4 +44,14 @@
 
 .keyboard-key.absent {
     background-color: #3a3a3c;
+}
+
+@media (max-width: 380px) {
+    .keyboard {
+        padding: 0;
+    }
+
+    .keyboard-key {
+        height: 40px;
+    }
 }
